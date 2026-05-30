@@ -21,9 +21,26 @@ const getAuthorById = async (id) => {
     return await authorSchema.findById(id)
 }
 
+const updateAuthor = async (id, body) => {
+    const updatedAuthor = await authorSchema.findByIdAndUpdate(
+        id,
+        body,
+        { new: true }
+    )
+
+    return updatedAuthor
+}
+
+const deleteAuthor = async (id) => {
+    const deletedAuthor = await authorSchema.findByIdAndDelete(id)
+
+    return deletedAuthor
+}
 
 module.exports = {
     getAuthors,
     createAuthor,
-    getAuthorById
+    getAuthorById,
+    updateAuthor,
+    deleteAuthor
 }

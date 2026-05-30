@@ -5,6 +5,11 @@ const authorsController = require("./authors.controller")
 
 authors.get("/authors", authorsController.getAuthors)
 authors.get("/authors/:id", authorsController.getAuthorById)
+
 authors.post("/authors", authorsController.createAuthor)
 
-module.exports =  authors
+authors.patch("/authors/:id", authorsController.updateAuthor)
+
+authors.delete("/authors/:id", authorsController.deleteAuthor)
+
+module.exports = authors
