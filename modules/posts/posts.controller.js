@@ -2,10 +2,19 @@ const postsService = require("./posts.service")
 
 const getPosts = async (req, res) => {
     try {
-        const posts = await postsService.getPosts()
+        const page = Number(req.query.page) || 1
+        const limit = Number(req.query.limit) || 10
+
+        const posts = await postsService.getPosts(
+            page,
+            limit
+        )
+
         res.status(200)
             .send({
                 statusCode: 200,
+                page,
+                limit,
                 posts
             })
     } catch (error) {
@@ -55,7 +64,7 @@ const createPost = async (req, res) => {
 
 const updatePost = async (req, res) => {
     try {
-        const updatePost = await postsService.updatePost(req.params.id,req.body)
+        const updatePost = await postsService.updatePost(req.params.id, req.body)
 
         if (!updatePost) {
             return res.status(404).send({
@@ -63,7 +72,7 @@ const updatePost = async (req, res) => {
                 message: "Post non trovato ❌"
             })
         }
-        
+
         res.status(200)
             .send({
                 statusCode: 200,

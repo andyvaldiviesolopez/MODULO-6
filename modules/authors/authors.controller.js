@@ -2,10 +2,18 @@ const authorsService = require("./authors.service")
 
 const getAuthors = async (req, res) => {
     try {
-        const authors = await authorsService.getAuthors()
+        const page = Number(req.query.page) || 1
+        const limit = Number(req.query.limit) || 10
+
+        const authors = await authorsService.getAuthors(
+            page,
+            limit
+        )
         res.status(200)
             .send({
                 statusCode: 200,
+                page,
+                limit,
                 authors
             })
     } catch (error) {

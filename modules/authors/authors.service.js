@@ -1,7 +1,11 @@
 const authorSchema = require("./authors.schema")
 
-const getAuthors = async () => {
+const getAuthors = async (page, limit) => {
+    const skip = (page - 1) * limit
+
     const authors = await authorSchema.find()
+    .skip(skip)
+    .limit(limit)
     return authors
 }
 

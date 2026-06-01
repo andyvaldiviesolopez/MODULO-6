@@ -1,9 +1,15 @@
 const Posts = require("./posts.schema")
 
-const getPosts = async () => {
+const getPosts = async (page, limit) => {
+    const skip = (page - 1) * limit
+
     const posts = await Posts.find()
+    .skip(skip)
+    .limit(limit)
+    
     return posts
 }
+
 
 const getPostById = async (id) => {
     const postById = await Posts.findById(id)
