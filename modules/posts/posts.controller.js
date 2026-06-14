@@ -57,7 +57,6 @@ const createPost = async (req, res) => {
             .send({
                 statusCode: 500,
                 message: "❌ Errore durante la creazione del post"
-
             })
     }
 }
@@ -114,10 +113,36 @@ const deletePost = async (req, res) => {
     }
 }
 
+const uploadOnDisk = async (req, res, next) => {
+    try {
+        const url = `${req.protocol}: ${req.get("host")}`
+        const name = req.file.filename
+
+        res.status(200)
+            .json({ img: `${url}/upload/${name}` })
+    } catch (error) {
+        next(e)
+    }
+}
+
+const uploadFileOnCloud = async (req, res, next) => {
+    try {
+        res.status(200)
+            .json({
+                statusCode: 200,
+                img: req.file.path
+            })
+    } catch (error) {
+        next(e)
+    }
+}
+
 module.exports = {
     getPosts,
     createPost,
     getPostById,
     updatePost,
-    deletePost
+    deletePost,
+    uploadOnDisk,
+    uploadFileOnCloud
 }
