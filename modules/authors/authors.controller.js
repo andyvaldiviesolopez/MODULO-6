@@ -23,6 +23,7 @@ const getAuthors = async (req, res) => {
                 statusCode: 500,
                 message: "Errore durante la chiamata al db ❌"
             })
+            console.log(error)
     }
 }
 
@@ -47,8 +48,6 @@ const getAuthorById = async (req, res) => {
 const createAuthor = async (req, res) => {
     try {
         const newAuthor = await authorsService.createAuthor(req)
-
-        await sendMail("isobel57@ethereal.email","NEW AUTHOR CREATE",`porva`)
         res.status(201)
             .send({
                 statusCode: 201,
@@ -59,7 +58,6 @@ const createAuthor = async (req, res) => {
             .send({
                 statusCode: 500,
                 message: "Errore durante la chiamata al db ❌",
-                error: error.message
             })
     }
 }

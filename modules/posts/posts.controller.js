@@ -1,4 +1,5 @@
 const postsService = require("./posts.service")
+const Comment = require("../comments/comments.schema")
 
 const getPosts = async (req, res) => {
     try {
@@ -58,6 +59,7 @@ const createPost = async (req, res) => {
                 statusCode: 500,
                 message: "❌ Errore durante la creazione del post"
             })
+        console.log(error)
     }
 }
 
@@ -137,6 +139,148 @@ const uploadFileOnCloud = async (req, res, next) => {
     }
 }
 
+const createCommentForPost = async (req, res) => {
+    try {
+        const newComment = await postsService.createCommentForPost(req.params.id, req.body)
+        if (!newComment) {
+            res.status(500)
+                .send({
+                    statusCode: 500,
+                    message: "Errore durante la creazione del nuovo commento"
+                })
+        }
+
+        res.status(200)
+            .send({
+                statusCode: 200,
+                message: "Commento nuovo creato! ✅",
+                newComment
+            })
+
+    } catch (error) {
+        res.status(500)
+            .send({
+                statusCode: 500,
+                message: error
+            })
+        console.log(error)
+    }
+}
+
+const getCommentsOfPost = async (req, res) => {
+    try {
+        const comments = await postsService.getCommentsOfPost(req.params.id)
+
+        if (!comments) {
+            console.log("Commenti non trovati ❌")
+            return res.status(404)
+                .send({
+                    statusCode: 404,
+                    message: "Commenti non trovati ❌"
+                })
+
+        }
+
+        res.status(200)
+            .send({
+                statusCode: 200,
+                message: `Commenti del post ${req.params.id} in arrivo!`,
+                comments
+            })
+
+    } catch (error) {
+        res.status(500)
+            .send({
+                statusCode: 500,
+                message: "Errore tecnico, controlla la console!"
+            })
+        console.error(error)
+    }
+}
+
+const getCommentFromId = async (req, res) => {
+    try {
+        const comment = await postsService.getCommentFromId(req.params.postId, req.params.commentId)
+        if (!comment) {
+            return res.status(404)
+                .send({
+                    statusCode: 404,
+                    message: "Commento non trovato ❌"
+                })
+        }
+
+        res.status(200)
+            .send({
+                statusCode: 200,
+                message: "Commento localizzato 🆗",
+                comment
+            })
+    } catch (error) {
+        res.status(500)
+            .send({
+                statusCode: 500,
+                message: "Errore tecnico, visualizzare la console"
+            })
+        console.error(error)
+    }
+}
+
+const updateCommentFromId = async (req, res) => {
+    try {
+        const updatedComment = await postsService.updateCommentFromId(req.params.postId, req.params.commentId, req.body)
+        if (!updatedComment) {
+            return res.status(404)
+                .send({
+                    statusCode: 404,
+                    message: "Commento non trovato ❌"
+                })
+        }
+
+        res.status(200)
+            .send({
+                statusCode: 200,
+                message: "Commento aggiornato con successo 🆗✅",
+                updatedComment
+            })
+
+    } catch (error) {
+        res.status(500)
+            .send({
+                statusCode: 500,
+                message: "Errore tecnico, visualizzare la console"
+            })
+        console.error(error)
+    }
+}
+
+const deleteCommentFromId = async (req, res) => {
+    try {
+        const comment = await postsService.deleteCommentFromId(req.params.postId, req.params.commentId)
+        if (!comment) {
+            return res.status(404)
+                .send({
+                    statusCode: 404,
+                    message: "Commento non trovato ❌"
+                })
+        }
+
+        res.status(200)
+            .send({
+                statusCode: 200,
+                message: "Commento eliminato con successo 🆗❌",
+                comment
+            })
+
+    } catch (error) {
+        res.status(500)
+            .send({
+                statusCode: 500,
+                message: "Errore tecnico, visualizzare la console"
+            })
+        console.error(error)
+    }
+}
+
 module.exports = {
     getPosts,
     createPost,
@@ -144,5 +288,10 @@ module.exports = {
     updatePost,
     deletePost,
     uploadOnDisk,
-    uploadFileOnCloud
+    uploadFileOnCloud,
+    createCommentForPost,
+    getCommentsOfPost,
+    getCommentFromId,
+    updateCommentFromId,
+    deleteCommentFromId
 }

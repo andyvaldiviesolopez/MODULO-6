@@ -4,8 +4,8 @@ const path = require("path")
 const cors = require("cors")
 const PORT = 8099
 
-const authorRoute = require("./modules/authors/authors.routes")
-const postRoute = require("./modules/posts/posts.routes")
+const authors = require("./modules/authors/authors.routes")
+const posts = require("./modules/posts/posts.routes")
 
 const loggerMiddleware = require("./middleware/logger")
 const errorHandler = require("./middleware/errorHandler")
@@ -19,8 +19,8 @@ server.use("/upload", express.static(path.join(__dirname, "./upload")))
 
 server.use(loggerMiddleware)
 
-server.use("/", authorRoute)
-server.use("/", postRoute)
+server.use("/", authors)
+server.use("/", posts)
 
 server.use(errorHandler)
 
