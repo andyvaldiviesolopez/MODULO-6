@@ -23,7 +23,7 @@ const getAuthors = async (req, res) => {
                 statusCode: 500,
                 message: "Errore durante la chiamata al db ❌"
             })
-            console.log(error)
+        console.log(error)
     }
 }
 
@@ -130,11 +130,63 @@ const uploadFileOnCloud = async (req, res, next) => {
     }
 }
 
+const login = async (req, res) => {
+    console.log("LOGIN CHIAMATO")
+    try {
+
+        const token =
+            await authorsService.login(
+                req.body.email,
+                req.body.password
+            )
+
+        res.status(200).send({
+            statusCode: 200,
+            token
+        })
+
+    } catch (error) {
+
+        res.status(401).send({
+            statusCode: 401,
+            message: error.message
+        })
+
+    }
+
+}
+
+const me = async (req, res) => {
+
+    try {
+
+        const author = await authorsService.me(
+            req.user.id
+        )
+
+        res.status(200).send({
+            statusCode: 200,
+            author
+        })
+
+    } catch (error) {
+
+        res.status(500).send({
+            statusCode: 500,
+            message: error.message
+        })
+
+    }
+
+}
+
 module.exports = {
     getAuthors,
     createAuthor,
     getAuthorById,
     updateAuthor,
     deleteAuthor,
-    uploadFileOnCloud
+    uploadFileOnCloud,
+    login,
+    me
 }

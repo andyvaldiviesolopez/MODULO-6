@@ -1,3 +1,4 @@
+console.log("AUTHORS ROUTES CARICATE")
 const { initServer } = require("./config/database")
 const express = require("express")
 const path = require("path")
@@ -11,6 +12,9 @@ const loggerMiddleware = require("./middleware/logger")
 const errorHandler = require("./middleware/errorHandler")
 
 const server = express()
+server.get("/", (req, res) => {
+    res.send("SERVER OK")
+})
 
 server.use(express.json())
 
@@ -18,10 +22,20 @@ server.use(cors())
 server.use("/upload", express.static(path.join(__dirname, "./upload")))
 
 server.use(loggerMiddleware)
-
+server.use((req, res, next) => {
+    console.log("RICHIESTA ARRIVATA AL SERVER")
+    next()
+})
+server.use((req, res, next) => {
+    console.log(req.method, req.url)
+    next()
+})
 server.use("/", authors)
 server.use("/", posts)
 
 server.use(errorHandler)
 
+server.get("/pippo", (req, res) => {
+    res.send("CIAO ANDY")
+})
 initServer(PORT, server)

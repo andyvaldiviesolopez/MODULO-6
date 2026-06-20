@@ -1,8 +1,8 @@
 const validateAuthor = (req, res, next) => {
 
-    const { firstName, lastName, email, birthday } = req.body
+    const { firstName, lastName, email, password } = req.body
 
-    if (!firstName || !lastName || !email) {
+    if (!firstName || !lastName || !email || !password) {
         return res.status(500)
             .send({
                 statusCode: 500,
