@@ -1,10 +1,19 @@
 const Posts = require("./posts.schema")
 const Comments = require("../comments/comments.schema")
 
-const getPosts = async (page, limit) => {
+const getPosts = async (page, limit, title) => {
     const skip = (page - 1) * limit
 
-    const posts = await Posts.find()
+    const filter = {}
+
+    if (title) {
+        filter.title = {
+            $regex: title,
+            $options: "i"
+        }
+    }
+
+    const posts = await Posts.find(filter)
         .skip(skip)
         .limit(limit)
 

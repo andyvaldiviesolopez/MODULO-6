@@ -8,7 +8,8 @@ const getPosts = async (req, res) => {
 
         const posts = await postsService.getPosts(
             page,
-            limit
+            limit,
+            req.query.title
         )
 
         res.status(200)

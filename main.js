@@ -11,6 +11,8 @@ const posts = require("./modules/posts/posts.routes")
 const loggerMiddleware = require("./middleware/logger")
 const errorHandler = require("./middleware/errorHandler")
 
+const oauthRoute = require("./modules/oauth/oauth.route")
+
 const server = express()
 server.get("/", (req, res) => {
     res.send("SERVER OK")
@@ -32,6 +34,7 @@ server.use((req, res, next) => {
 })
 server.use("/", authors)
 server.use("/", posts)
+server.use("/", oauthRoute)
 
 server.use(errorHandler)
 

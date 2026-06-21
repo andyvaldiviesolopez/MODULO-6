@@ -9,7 +9,7 @@ authors.get("/authors",auth, authorsController.getAuthors)
 authors.get("/authors/:id",auth, authorsController.getAuthorById)
 authors.get("/me", auth, authorsController.me)
 
-authors.post("/authors", validateAuthorMiddleware, authorsController.createAuthor)
+authors.post("/authors", authorsController.createAuthor)
 authors.post("/login", authorsController.login)
 
 authors.patch("/authors/:id",auth, authorsController.updateAuthor)
