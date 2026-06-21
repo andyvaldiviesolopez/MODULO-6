@@ -12,7 +12,7 @@ const Home = () => {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          "http://localhost:8099/me",
+          `${process.env.REACT_APP_SERVERURI}/me`,
           {
             headers: {
               Authorization: `Bearer ${token}`

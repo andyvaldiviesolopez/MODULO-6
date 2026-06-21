@@ -25,9 +25,9 @@ const NewBlogPost = props => {
     e.preventDefault();
 
     const token = localStorage.getItem("token");
-
+    console.log(token)
     const response = await fetch(
-      "http://localhost:8099/posts",
+      `${process.env.REACT_APP_SERVERURI}/posts`,
       {
         method: "POST",
         headers: {

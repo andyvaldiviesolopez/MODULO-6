@@ -20,7 +20,7 @@ const Register = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:8099/authors",
+                `${process.env.REACT_APP_SERVERURI}/authors`,
                 {
                     method: "POST",
                     headers: {

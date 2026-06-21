@@ -29,6 +29,7 @@ const getPostById = async (id) => {
 }
 
 const createPost = async (req) => {
+    console.log("SONO NEL CONTROLLER")
     const newPost = await Posts.create({
         category: req.body.category,
         title: req.body.title,

@@ -8,9 +8,7 @@ const [posts, setPosts] = useState([]);
 useEffect(() => {
 const getPosts = async () => {
 try {
-const response = await fetch(
-"http://localhost:8099/posts"
-);
+const response = await fetch(`${process.env.REACT_APP_SERVERURI}/posts`);
     const data = await response.json();
 
     setPosts(data.posts);

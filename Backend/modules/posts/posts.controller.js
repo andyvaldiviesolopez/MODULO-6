@@ -46,6 +46,7 @@ const getPostById = async (req, res) => {
 }
 
 const createPost = async (req, res) => {
+    console.log("SONO NEL CONTROLLER")
     try {
         const newPost = await postsService.createPost(req)
         res.status(201)
@@ -55,13 +56,14 @@ const createPost = async (req, res) => {
                 newPost
             })
     } catch (error) {
-        res.status(500)
-            .send({
-                statusCode: 500,
-                message: "❌ Errore durante la creazione del post"
-            })
-        console.log(error)
-    }
+    console.error("CREATE POST ERROR");
+    console.error(error);
+
+    res.status(500).send({
+        statusCode: 500,
+        message: error.message
+    });
+}
 }
 
 const updatePost = async (req, res) => {

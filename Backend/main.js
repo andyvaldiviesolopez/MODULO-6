@@ -1,9 +1,10 @@
 console.log("AUTHORS ROUTES CARICATE")
+require("dotenv").config()
 const { initServer } = require("./config/database")
 const express = require("express")
 const path = require("path")
 const cors = require("cors")
-const PORT = 8099
+const PORT = process.env.PORT
 
 const authors = require("./modules/authors/authors.routes")
 const posts = require("./modules/posts/posts.routes")

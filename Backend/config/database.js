@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const initDatabaseConnectionString = "mongodb+srv://EpiBooks_Database:Metodo2026@epibooks.qzkkadr.mongodb.net/EpiBooks"
+const initDatabaseConnectionString = process.env.MONGODB_URI
 
 const getConnection = async () => {
     try {
@@ -8,6 +8,7 @@ const getConnection = async () => {
         console.log("Database connected successfully 🆗")
     } catch (error) {
         console.error("Cannot connect to the database ❌")
+        console.error(error)
     }
 }
 
