@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -87,6 +88,19 @@ const Login = () => {
         >
           Login con Google
         </a>
+      </div>
+      <div className="mt-3">
+        <p>
+          Non hai un account?{" "}
+          <button
+            as={Link}
+            to="/register"
+            variant="secondary"
+            className = "btn btn-primary"
+          >
+            Registrati
+          </button>
+        </p>
       </div>
     </form>
   </div>
