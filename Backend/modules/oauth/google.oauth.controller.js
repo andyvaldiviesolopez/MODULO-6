@@ -8,7 +8,7 @@ const authGoogle = async (req, res, next) => {
         )
 
         res.redirect(
-            `http://localhost:3000/oauth/success?user=${user}`
+            `${process.env.FRONTEND_URL}/oauth/success?user=${user}`
         )
 
     } catch (error) {
@@ -26,7 +26,7 @@ const manageOAuthCallback = async (req, res, next) => {
             process.env.JWT_SECRET
         )
         res.redirect(
-            `http://localhost:3000/oauth/success?token=${token}`
+            `${process.env.FRONTEND_URL}/oauth/success?token=${token}`
         )
 
     } catch (error) {

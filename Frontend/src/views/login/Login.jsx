@@ -80,6 +80,14 @@ const Login = () => {
       >
         Login
       </button>
+      <div className="mt-3">
+        <a
+          href={`${process.env.REACT_APP_SERVERURI}/auth/google`}
+          className="btn btn-danger"
+        >
+          Login con Google
+        </a>
+      </div>
     </form>
   </div>
 

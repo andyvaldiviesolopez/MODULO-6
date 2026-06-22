@@ -7,7 +7,7 @@ import NewBlogPost from "./views/new/New";
 import Login from "./views/login/Login";
 import Register from "./views/register/Register";
 import OAuthSuccess from "./views/oauth/OAuthSuccess";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
   return (
@@ -19,7 +19,14 @@ function App() {
         <Route path="/oauth/success" element={<OAuthSuccess />} />
         <Route path="/" exact element={<Home />} />
         <Route path="/blog/:id" element={<Blog />} />
-        <Route path="/new" element={<NewBlogPost />} />
+        <Route
+          path="/new"
+          element={
+            localStorage.getItem("token")
+              ? <NewBlogPost />
+              : <Navigate to="/login" />
+          }
+        />
 
       </Routes>
       <Footer />

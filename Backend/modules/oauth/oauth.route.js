@@ -2,6 +2,7 @@ const express = require("express")
 const oauth = express.Router()
 const passport = require("passport")
 const session = require("express-session")
+const Author = require("../authors/authors.schema")
 
 const GoogleStrategy = require("passport-google-oauth20").Strategy
 
@@ -33,13 +34,21 @@ passport.use(
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             callbackURL: process.env.GOOGLE_CALLBACK_URL
         },
-        (accessToken, refreshToken, profile, done) => {
+        async (accessToken, refreshToken, profile, done) => {
 
-            console.log("GOOGLE STRATEGY CHIAMATA")
+            console.log(profile)
+
+            const author = await Author.findOne({
+                email: profile.emails[0].value
+            })
+
+            if (!author) {
+                return done(new Error("Utente non trovato"))
+            }
 
             return done(null, {
-                id: "123",
-                email: "test@test.it"
+                id: author._id,
+                email: author.email
             })
         }
     )
