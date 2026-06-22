@@ -45,6 +45,30 @@ const getPostById = async (req, res) => {
     }
 }
 
+const getMyPosts = async (req, res) => {
+    try {
+        console.log("USER:", req.user)
+        const posts = await postsService.getMyPosts(
+            req.user.id
+        )
+        console.log("TIPO:", typeof posts)
+        console.log("ARRAY?", Array.isArray(posts))
+        console.log("VALORE:", posts)
+        res.status(200).send({
+            statusCode: 200,
+            posts
+        })
+
+    } catch (error) {
+
+        res.status(500).send({
+            statusCode: 500,
+            message: error.message
+        })
+
+    }
+}
+
 const createPost = async (req, res) => {
     console.log("SONO NEL CONTROLLER")
     try {
@@ -56,14 +80,14 @@ const createPost = async (req, res) => {
                 newPost
             })
     } catch (error) {
-    console.error("CREATE POST ERROR");
-    console.error(error);
+        console.error("CREATE POST ERROR");
+        console.error(error);
 
-    res.status(500).send({
-        statusCode: 500,
-        message: error.message
-    });
-}
+        res.status(500).send({
+            statusCode: 500,
+            message: error.message
+        });
+    }
 }
 
 const updatePost = async (req, res) => {
@@ -94,6 +118,23 @@ const updatePost = async (req, res) => {
 
 const deletePost = async (req, res) => {
     try {
+        const post = await postsService.getPostById(
+            req.params.id
+        )
+        if (!post) {
+            return res.status(404).send({
+                statusCode: 404,
+                message: "Post non trovato ❌"
+            })
+        }
+        if (
+            post.author.toString() !== req.user.id
+        ) {
+            return res.status(403).send({
+                statusCode: 403,
+                message: "Non autorizzato ❌"
+            })
+        }
         const deletePost = await postsService.deletePost(req.params.id)
 
         if (!deletePost) {
@@ -296,5 +337,6 @@ module.exports = {
     getCommentsOfPost,
     getCommentFromId,
     updateCommentFromId,
-    deleteCommentFromId
+    deleteCommentFromId,
+    getMyPosts
 }

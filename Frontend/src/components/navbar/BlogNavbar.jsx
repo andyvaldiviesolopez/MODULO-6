@@ -37,6 +37,13 @@ const NavBar = props => {
               Nuovo Articolo
             </Button>
             <Button
+              as={Link}
+              to="/myPosts"
+              variant="secondary"
+            >
+              I miei post
+            </Button>
+            <Button
               variant="danger"
               onClick={handleLogout}
             >

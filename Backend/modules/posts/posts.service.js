@@ -29,8 +29,22 @@ const getPostById = async (id) => {
     return postById
 }
 
+const getMyPosts = async (authorId) => {
+
+    console.log("AUTHOR ID:", authorId)
+
+    const posts = await Posts.find({
+        author: authorId
+    })
+        .sort({ createdAt: -1 })
+    console.log("POSTS:", getPosts)
+    return posts
+}
+
 const createPost = async (req) => {
     console.log("SONO NEL CONTROLLER")
+    console.log("REQ.USER:", req.user)
+    console.log("BODY:", req.body)
     const newPost = await Posts.create({
         category: req.body.category,
         title: req.body.title,
@@ -39,10 +53,11 @@ const createPost = async (req) => {
             value: req.body.readtime?.value || 1,
             unit: req.body.readtime?.unit || "1 min"
         },
-        author: req.body.author,
+        author: req.user.id,
         content: req.body.content,
         comments: req.body.comments || []
     })
+
 
     return newPost
 }
@@ -106,5 +121,6 @@ module.exports = {
     getCommentsOfPost,
     getCommentFromId,
     updateCommentFromId,
-    deleteCommentFromId
+    deleteCommentFromId,
+    getMyPosts
 }

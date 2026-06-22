@@ -6,6 +6,7 @@ import Blog from "./views/blog/Blog";
 import NewBlogPost from "./views/new/New";
 import Login from "./views/login/Login";
 import Register from "./views/register/Register";
+import MyPosts from "./views/myPosts/MyPosts";
 import OAuthSuccess from "./views/oauth/OAuthSuccess";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/oauth/success" element={<OAuthSuccess />} />
         <Route path="/" exact element={<Home />} />
         <Route path="/blog/:id" element={<Blog />} />
+        <Route path="/myPosts" element={<MyPosts />} />
         <Route
           path="/new"
           element={

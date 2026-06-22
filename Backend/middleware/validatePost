@@ -1,7 +1,7 @@
 const validatePost = (req, res, next) => {
-    const { title, author, content } = req.body
+    const { title, content } = req.body
 
-    if (!title || !author || !content) {
+    if (!title || !content) {
         return res.status(400).send({
             statusCode: 400,
             message: "Inserire tutti i campi obbligatori"

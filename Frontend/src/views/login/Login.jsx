@@ -93,10 +93,9 @@ const Login = () => {
         <p>
           Non hai un account?{" "}
           <button
-            as={Link}
-            to="/register"
-            variant="secondary"
-            className = "btn btn-primary"
+            type="button"
+            onClick={() => navigate("/register")}
+            className="btn btn-primary"
           >
             Registrati
           </button>

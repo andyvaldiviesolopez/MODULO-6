@@ -12,8 +12,7 @@ const NewBlogPost = props => {
   const [text, setText] = useState("");
   const [formData, setFormData] = useState({
     title: "",
-    category: "",
-    author: "",
+    category: ""
   });
   const handleChange = useCallback(value => {
 
@@ -86,21 +85,6 @@ const NewBlogPost = props => {
             <option>Categoria 4</option>
             <option>Categoria 5</option>
           </Form.Control>
-        </Form.Group>
-        <Form.Group className="mt-3">
-          <Form.Label>Autore</Form.Label>
-
-          <Form.Control
-            size="lg"
-            placeholder="Autore"
-            value={formData.author}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                author: e.target.value
-              })
-            }
-          />
         </Form.Group>
         <Form.Group controlId="blog-content" className="mt-3">
           <Form.Label>Contenuto Blog</Form.Label>
