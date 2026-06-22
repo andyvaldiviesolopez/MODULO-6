@@ -20,6 +20,11 @@ const Home = () => {
           }
         );
 
+        if (!response.ok) {
+          localStorage.removeItem("token");
+          setUser(null);
+          return;
+        }
         const data = await response.json();
 
         setUser(data.author);
