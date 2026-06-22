@@ -15,7 +15,7 @@ const postSchema = new mongoose.Schema({
     cover: {
         type: String,
         required: false,
-        default: "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
+        default: "https://images.unsplash.com/photo-1499750310107-5fef28a66643"
     },
     readtime: {
         value: {

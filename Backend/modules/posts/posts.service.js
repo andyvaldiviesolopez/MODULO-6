@@ -14,6 +14,7 @@ const getPosts = async (page, limit, title) => {
     }
 
     const posts = await Posts.find(filter)
+        .populate("author")
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
@@ -36,6 +37,7 @@ const getMyPosts = async (authorId) => {
     const posts = await Posts.find({
         author: authorId
     })
+        .populate("author")
         .sort({ createdAt: -1 })
     console.log("POSTS:", getPosts)
     return posts

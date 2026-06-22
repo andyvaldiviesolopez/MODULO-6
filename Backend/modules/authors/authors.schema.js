@@ -27,7 +27,7 @@ const AuthorSchema = new mongoose.Schema({
     },
     avatar: {
         type: String,
-        required: false
+         default: "https://i.pravatar.cc/300"
     }
 }, { timestamps: true, strict: true })
 

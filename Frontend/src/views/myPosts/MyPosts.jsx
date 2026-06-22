@@ -63,11 +63,11 @@ const MyPosts = () => {
 
             <Row>
                 {posts.map((post) => (
-                    <Col md={4} key={post._id}>
+                    <Col md={4} key={post._id} className="mb-5">
                         <BlogItem {...post} />
                         <Button
                             variant="danger"
-                            className="mt-2"
+                            className="mt-2 w-100"
                             onClick={() => handleDelete(post._id)}
                         >
                             Elimina

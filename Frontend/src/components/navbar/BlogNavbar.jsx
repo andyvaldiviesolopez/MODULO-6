@@ -22,7 +22,7 @@ const NavBar = props => {
           <img className="blog-navbar-brand" alt="logo" src={logo} />
         </Navbar.Brand>
         {token ? (
-          <>
+          <div className="d-flex align-items-center gap-2 ms-auto">
             <Button as={Link} to="/new" className="blog-navbar-add-button bg-dark" size="lg">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -39,17 +39,18 @@ const NavBar = props => {
             <Button
               as={Link}
               to="/myPosts"
-              variant="secondary"
+              className="blog-navbar-add-button bg-primary"
             >
               I miei post
             </Button>
             <Button
               variant="danger"
               onClick={handleLogout}
+              className="blog-navbar-add-button bg-danger"
             >
               Logout
             </Button>
-          </>
+          </div>
         ) : (
           <Button
             as={Link}
