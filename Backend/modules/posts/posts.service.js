@@ -14,6 +14,7 @@ const getPosts = async (page, limit, title) => {
     }
 
     const posts = await Posts.find(filter)
+        .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
 
