@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -35,6 +37,7 @@ const Register = () => {
             console.log(data);
 
             alert("Registrazione completata!");
+            navigate("/login");
         } catch (error) {
             console.error(error);
             alert("Errore durante la registrazione");
